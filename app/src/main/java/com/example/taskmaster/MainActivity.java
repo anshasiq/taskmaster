@@ -1,6 +1,8 @@
 package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.taskmaster.adapter.ProductListRecyclerVIewAdapter;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
@@ -73,9 +77,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent go2 = new Intent(MainActivity.this, AllTasks.class);
-startActivity(go2);
+                startActivity(go2);
             }
         });
 
 
-    }}
+        setUpProductListRecyclerView();
+
+
+
+    }
+    private void setUpProductListRecyclerView(){
+
+        RecyclerView productListRecyclerView = (RecyclerView) findViewById(R.id.productListRecyclerView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        productListRecyclerView.setLayoutManager(layoutManager);
+
+
+        ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter();
+        productListRecyclerView.setAdapter(adapter);
+
+    }
+
+    }
