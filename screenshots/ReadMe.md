@@ -15,4 +15,7 @@
 ![image description](Screenshot_20231018-222949_taskmaster.jpg)
 ![image description](Screenshot_20231018-223215_taskmaster.jpg)
 
+# for Lab 28
+### Now you can click on the Recyclerview Tasks and take you to the detail page and see it there  
+![lab 28](Screenshot_20231025_235040.png)
 

@@ -12,7 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.taskmaster.Model.Task;
 import com.example.taskmaster.adapter.ProductListRecyclerVIewAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
@@ -92,9 +96,14 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView productListRecyclerView = (RecyclerView) findViewById(R.id.productListRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         productListRecyclerView.setLayoutManager(layoutManager);
+        List<Task> Tasks = new ArrayList<>();
 
+        Tasks.add(new Task("GO Out"));
+        Tasks.add(new Task("Exercise"));
+        Tasks.add(new Task("Reading"));
+        Tasks.add(new Task("sleeping"));
 
-        ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter();
+        ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter(Tasks,this);
         productListRecyclerView.setAdapter(adapter);
 
     }
