@@ -22,5 +22,21 @@ public class TaskDetailPage extends AppCompatActivity {
         TextView textView4 = findViewById(R.id.textView4);
         textView4.setText(receivedData);
 
+        TextView textView5 = findViewById(R.id.textView5);
+        String receivedData2 = intent.getStringExtra("getBody");
+        textView5.setText(receivedData2);
+
+        TextView textView7 = findViewById(R.id.getd);
+        String receivedData3 = intent.getStringExtra("getdate");
+        textView7.setText(receivedData3);
+
+        TextView textView8 = findViewById(R.id.textView7);
+        String receivedData4 = intent.getStringExtra("getstate");
+        textView8.setText(receivedData4);
+
+
+//        textView7
+
+
     }
 }
