@@ -3,6 +3,7 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,14 +13,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.taskmaster.Model.StateOfTask;
 import com.example.taskmaster.Model.Task;
 import com.example.taskmaster.adapter.ProductListRecyclerVIewAdapter;
+import com.example.taskmaster.database.DatabaseForTask;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
+   public static final String  DATABASE_NAME = "Database_For_Task" ;
+
+    DatabaseForTask databaseForTask;
+//    List<Task> Tasks=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +92,50 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(go2);
             }
         });
-
+//DatabaseForTask
 
         setUpProductListRecyclerView();
+  ////////////////////////////////////
 
 
+//        databaseForTask = Room.databaseBuilder(
+//                      getApplicationContext(),
+//                       DatabaseForTask.class,
+//                        DATABASE_NAME)
+//                .fallbackToDestructiveMigration()
+//                .allowMainThreadQueries()
+//               .build();
+//        Tasks = databaseForTask.taskDao().findAll();
+//        Tasks.clear();
+//        Tasks.addAll(databaseForTask.taskDao().findAll());
+//        ProductListRecyclerVIewAdapter.notifyDataSetChanged();
 
     }
-    private void setUpProductListRecyclerView(){
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+       setUpProductListRecyclerView();
+    }
+
+
+
+
+        private void setUpProductListRecyclerView(){
 
         RecyclerView productListRecyclerView = (RecyclerView) findViewById(R.id.productListRecyclerView);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         productListRecyclerView.setLayoutManager(layoutManager);
-        List<Task> Tasks = new ArrayList<>();
 
-        Tasks.add(new Task("GO Out"));
-        Tasks.add(new Task("Exercise"));
-        Tasks.add(new Task("Reading"));
-        Tasks.add(new Task("sleeping"));
-
-        ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter(Tasks,this);
+            databaseForTask = Room.databaseBuilder(
+                            getApplicationContext(),
+                            DatabaseForTask.class,
+                            "database_For_Task")
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build();
+        List<Task> Taskss = databaseForTask.taskDao().findAll();
+            ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter(Taskss, this);
         productListRecyclerView.setAdapter(adapter);
 
     }

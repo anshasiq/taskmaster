@@ -40,12 +40,18 @@ public class ProductListRecyclerVIewAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView productFragmentTextView = (TextView) holder.itemView.findViewById(R.id.Textview4);
         String productName = Tasks.get(position).getTitle();
+        String getBody = Tasks.get(position).getBody();
+        String getdate = Tasks.get(position).dateCreated.toString();
+        String getstate = Tasks.get(position).getStateOfTask().toString();
         productFragmentTextView.setText(position+1 +". "+ productName);
         ////////////////////////////////////////////////////////////////
         View productViewHolder = holder.itemView;
         productViewHolder.setOnClickListener(view -> {
             Intent goToOrderFormIntent = new Intent(callingActivity, TaskDetailPage.class);
             goToOrderFormIntent.putExtra("key", productName);
+            goToOrderFormIntent.putExtra("getBody", getBody);
+            goToOrderFormIntent.putExtra("getdate", getdate);
+            goToOrderFormIntent.putExtra("getstate", getstate);
             callingActivity.startActivity(goToOrderFormIntent);
         });
     }

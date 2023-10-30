@@ -1,35 +1,50 @@
 package com.example.taskmaster.Model;
 
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Date;
+
+@Entity
 public class Task {
+
+    @PrimaryKey(autoGenerate = true)
+    public long id;
     String title;
     String body;
-    String state;
+  public   java.util.Date dateCreated;
+    StateOfTask stateOfTask;
 
-    public Task(String title) {
+    public Task(String title, String body, Date dateCreated, StateOfTask stateOfTask) {
         this.title = title;
+        this.body = body;
+        this.dateCreated = dateCreated;
+        this.stateOfTask = stateOfTask;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
-
     public String getBody() {
         return body;
     }
-
     public void setBody(String body) {
         this.body = body;
     }
 
-    public String getState() {
-        return state;
+    public StateOfTask getStateOfTask() {
+        return stateOfTask;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStateOfTask(StateOfTask stateOfTask) {
+        this.stateOfTask = stateOfTask;
     }
 }

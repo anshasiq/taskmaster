@@ -19,3 +19,20 @@
 ### Now you can click on the Recyclerview Tasks and take you to the detail page and see it there  
 ![lab 28](Screenshot_20231025_235040.png)
 
+
+# for Lab 29
+### Now you can add task in Add Task activity with  
+
+- title
+- body
+- data created 
+- stateoftask   
+
+ it will save them in task entity
+### and you can see them in main activity and Browse them in details page.
+![lab 29](Screenshot_20231031_003931.png)
+![lab 29](Screenshot_20231031_003946.png)
+![lab 29](Screenshot_20231031_004343.png) 
+
+
+
