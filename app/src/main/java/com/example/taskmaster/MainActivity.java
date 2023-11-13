@@ -1,22 +1,26 @@
 package com.example.taskmaster;
 
+import static com.example.taskmaster.AddProAmlify.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
+
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.taskmaster.Model.StateOfTask;
-import com.example.taskmaster.Model.Task;
+import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.example.taskmaster.adapter.ProductListRecyclerVIewAdapter;
-import com.example.taskmaster.database.DatabaseForTask;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,8 +30,8 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
    public static final String  DATABASE_NAME = "Database_For_Task" ;
 
-    DatabaseForTask databaseForTask;
-//    List<Task> Tasks=null;
+   ProductListRecyclerVIewAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,26 +96,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(go2);
             }
         });
-//DatabaseForTask
 
         setUpProductListRecyclerView();
-  ////////////////////////////////////
-
-
-//        databaseForTask = Room.databaseBuilder(
-//                      getApplicationContext(),
-//                       DatabaseForTask.class,
-//                        DATABASE_NAME)
-//                .fallbackToDestructiveMigration()
-//                .allowMainThreadQueries()
-//               .build();
-//        Tasks = databaseForTask.taskDao().findAll();
-//        Tasks.clear();
-//        Tasks.addAll(databaseForTask.taskDao().findAll());
-//        ProductListRecyclerVIewAdapter.notifyDataSetChanged();
-
     }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -127,16 +114,30 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         productListRecyclerView.setLayoutManager(layoutManager);
 
-            databaseForTask = Room.databaseBuilder(
-                            getApplicationContext(),
-                            DatabaseForTask.class,
-                            "database_For_Task")
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build();
-        List<Task> Taskss = databaseForTask.taskDao().findAll();
-            ProductListRecyclerVIewAdapter adapter = new ProductListRecyclerVIewAdapter(Taskss, this);
-        productListRecyclerView.setAdapter(adapter);
+
+            List<Task> Tasks = new ArrayList<>();
+
+            Amplify.API.query(
+                    ModelQuery.list(Task.class),
+                    success ->
+                    {
+                        Log.i(TAG, "Read Product successfully");
+
+                        Tasks.clear();
+                        for (Task databaseProduct : success.getData()){
+                            Tasks.add(databaseProduct);
+                        }
+
+                        runOnUiThread(() ->{
+                            adapter.notifyDataSetChanged();
+                        });
+                    },
+                    failure -> Log.i(TAG, "Did not read products successfully")
+
+            );
+            adapter = new ProductListRecyclerVIewAdapter(Tasks, this);
+            productListRecyclerView.setAdapter(adapter);
+
 
     }
 
