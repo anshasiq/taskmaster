@@ -36,6 +36,14 @@
 
 
 # Lab 31 
-we make some esprso tests.
+we make some espresso tests.
+
+# lab 32 
+the add task become connected with DynamoDB.
+the recyclerview become retrieve data from DynamoDB.
+the espresso still working fine.
+
+
+
 
 

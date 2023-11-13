@@ -10,7 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskmaster.Model.Task;
+//import com.example.taskmaster.Model.Task;
+import com.amplifyframework.datastore.generated.model.Task;
 import com.example.taskmaster.R;
 import com.example.taskmaster.TaskDetailPage;
 
@@ -41,8 +42,8 @@ public class ProductListRecyclerVIewAdapter extends RecyclerView.Adapter{
         TextView productFragmentTextView = (TextView) holder.itemView.findViewById(R.id.Textview4);
         String productName = Tasks.get(position).getTitle();
         String getBody = Tasks.get(position).getBody();
-        String getdate = Tasks.get(position).dateCreated.toString();
-        String getstate = Tasks.get(position).getStateOfTask().toString();
+        String getdate = Tasks.get(position).getCreatedAt().toString();
+        String getstate = Tasks.get(position).getStateofTask().toString();
         productFragmentTextView.setText(position+1 +". "+ productName);
         ////////////////////////////////////////////////////////////////
         View productViewHolder = holder.itemView;
