@@ -64,9 +64,9 @@ public class Addtask extends AppCompatActivity {
             try {
                 allteams=TeamFuture.get();
             }catch (InterruptedException ie){
-                Log.e(TAG, " InterruptedException while getting contacts");
+                Log.e(TAG, " InterruptedException while getting Teams");
             }catch (ExecutionException ee){
-                Log.e(TAG," ExecutionException while getting contacts");
+                Log.e(TAG," ExecutionException while getting Teams");
             }
 
             Team selectedContact = allteams.stream()
@@ -78,7 +78,7 @@ public class Addtask extends AppCompatActivity {
                     .title(title)
                     .body(body)
                     .dateCreated(new Temporal.DateTime(new Date(), 0))
-                    .stateofTask((com.amplifyframework.datastore.generated.model.Stateotask) spinner.getSelectedItem())
+                    .stateofTask((Stateotask) spinner.getSelectedItem())
                     .teamTask(selectedContact)
                     .build();
 

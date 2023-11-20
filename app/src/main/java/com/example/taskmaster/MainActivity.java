@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     SharedPreferences preferences;
+    SharedPreferences preferences2;
+    String Tname = "TeamOne";
    public static final String  DATABASE_NAME = "Database_For_Task" ;
 
    ProductListRecyclerVIewAdapter adapter;
@@ -38,42 +41,14 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ////////
-//        Team TeamOne = Team.builder()
-//                .teamName("TeamOne")
-//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
-//
-//        Team TeamTwo = Team.builder()
-//                .teamName("TeamTwo")
-//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
-//
-//        Team TeamThree = Team.builder()
-//                .teamName("TeamThree")
-//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
-//        Amplify.API.mutate(
-//                ModelMutation.create(TeamOne),
-//                successResponse -> Log.i(TAG, "AddProductActivity.onCreate(): made a product successfully"),//success response
-//                failureResponse -> Log.e(TAG, "AddProductActivity.onCreate(): failed with this response" + failureResponse)// in case we have a failed response
-//        );
-//        Amplify.API.mutate(
-//                ModelMutation.create(TeamTwo),
-//                successResponse -> Log.i(TAG, "AddProductActivity.onCreate(): made a product successfully"),//success response
-//                failureResponse -> Log.e(TAG, "AddProductActivity.onCreate(): failed with this response" + failureResponse)// in case we have a failed response
-//        );
-//        Amplify.API.mutate(
-//                ModelMutation.create(TeamThree),
-//                successResponse -> System.out.println("good"),
-//                failureResponse -> System.out.println("fallied" + failureResponse)// in case we have a failed response
-//        );
-
-
-        ///////
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String userNickname = preferences.getString(SettingsPage.KEY, "No nickname");
+
+        String Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
+        System.out.println(Tname);
+
         TextView d = (TextView) findViewById(R.id.textView6);
         d.setText(userNickname);
         System.out.println(userNickname);
@@ -138,11 +113,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
        setUpProductListRecyclerView();
+         Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
+        System.out.println(Tname);
     }
 
 
 
 
+        @SuppressLint("SuspiciousIndentation")
         private void setUpProductListRecyclerView(){
 
         RecyclerView productListRecyclerView = (RecyclerView) findViewById(R.id.productListRecyclerView);
@@ -160,7 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
                         Tasks.clear();
                         for (Task databaseProduct : success.getData()){
+                            if(databaseProduct.getTeamTask().getTeamName().equals(Tname))
                             Tasks.add(databaseProduct);
+                                Log.i(TAG, databaseProduct.getTeamTask().toString());
                         }
 
                         runOnUiThread(() ->{
