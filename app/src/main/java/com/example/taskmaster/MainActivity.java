@@ -16,9 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;
+import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
+import com.amplifyframework.datastore.generated.model.Team;
 import com.example.taskmaster.adapter.ProductListRecyclerVIewAdapter;
 
 
@@ -35,6 +38,38 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ////////
+//        Team TeamOne = Team.builder()
+//                .teamName("TeamOne")
+//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
+//
+//        Team TeamTwo = Team.builder()
+//                .teamName("TeamTwo")
+//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
+//
+//        Team TeamThree = Team.builder()
+//                .teamName("TeamThree")
+//                .dateCreated(new Temporal.DateTime(new Date(), 0)).build();
+//        Amplify.API.mutate(
+//                ModelMutation.create(TeamOne),
+//                successResponse -> Log.i(TAG, "AddProductActivity.onCreate(): made a product successfully"),//success response
+//                failureResponse -> Log.e(TAG, "AddProductActivity.onCreate(): failed with this response" + failureResponse)// in case we have a failed response
+//        );
+//        Amplify.API.mutate(
+//                ModelMutation.create(TeamTwo),
+//                successResponse -> Log.i(TAG, "AddProductActivity.onCreate(): made a product successfully"),//success response
+//                failureResponse -> Log.e(TAG, "AddProductActivity.onCreate(): failed with this response" + failureResponse)// in case we have a failed response
+//        );
+//        Amplify.API.mutate(
+//                ModelMutation.create(TeamThree),
+//                successResponse -> System.out.println("good"),
+//                failureResponse -> System.out.println("fallied" + failureResponse)// in case we have a failed response
+//        );
+
+
+        ///////
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
