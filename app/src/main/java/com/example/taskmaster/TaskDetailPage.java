@@ -34,6 +34,11 @@ public class TaskDetailPage extends AppCompatActivity {
         String receivedData4 = intent.getStringExtra("getstate");
         textView8.setText(receivedData4);
 
+        TextView textView9 = findViewById(R.id.textView9);
+        String receivedData6 = intent.getStringExtra("getTeam");
+        System.out.println(receivedData6);
+        textView9.setText(receivedData6);
+
 
 //        textView7
 

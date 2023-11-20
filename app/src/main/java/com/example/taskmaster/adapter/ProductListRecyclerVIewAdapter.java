@@ -44,15 +44,17 @@ public class ProductListRecyclerVIewAdapter extends RecyclerView.Adapter{
         String getBody = Tasks.get(position).getBody();
         String getdate = Tasks.get(position).getCreatedAt().toString();
         String getstate = Tasks.get(position).getStateofTask().toString();
+        String getTeam = Tasks.get(position).getTeamTask().getTeamName().toString();
         productFragmentTextView.setText(position+1 +". "+ productName);
         ////////////////////////////////////////////////////////////////
         View productViewHolder = holder.itemView;
         productViewHolder.setOnClickListener(view -> {
             Intent goToOrderFormIntent = new Intent(callingActivity, TaskDetailPage.class);
-            goToOrderFormIntent.putExtra("key", productName);
+            goToOrderFormIntent.putExtra("key", productName     );
             goToOrderFormIntent.putExtra("getBody", getBody);
             goToOrderFormIntent.putExtra("getdate", getdate);
             goToOrderFormIntent.putExtra("getstate", getstate);
+            goToOrderFormIntent.putExtra("getTeam", getTeam);
             callingActivity.startActivity(goToOrderFormIntent);
         });
     }
