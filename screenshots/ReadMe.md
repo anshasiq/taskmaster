@@ -43,7 +43,16 @@ the add task become connected with DynamoDB.
 the recyclerview become retrieve data from DynamoDB.
 the espresso still working fine.
 
+---
 
+# Lab 33
+* I made all the requirements
+* now you can add a task and select the team you wanted 
+* **and from setting page you can manipulate which Team to display on the main-activity**
+* Default TeamOne in the main page
+* i modified the Espresso
+
+`MainActivityTestLab33`
 
 
 
