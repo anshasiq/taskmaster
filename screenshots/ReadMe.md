@@ -51,6 +51,8 @@ the espresso still working fine.
 * **and from setting page you can manipulate which Team to display on the main-activity**
 * Default TeamOne in the main page
 * i modified the Espresso
+* also you can see the name on task details
+
 
 `MainActivityTestLab33`
 
