@@ -47,14 +47,17 @@ the espresso still working fine.
 
 # Lab 33
 * I made all the requirements
-* now you can add a task and select the team you wanted 
+* now you can add a task and select the team you want
 * **and from setting page you can manipulate which Team to display on the main-activity**
 * Default TeamOne in the main page
 * i modified the Espresso
 * also you can see the name on task details
 
 
-`MainActivityTestLab33`
 
-
-
+# Lab 34
+* I made all the requirements
+* now you can edit the Name and Body of the Task by click on it from recycle view
+* I have created a new page called Edit
+* you can also Delete the Task
+![edit task](Screenshot_20231123_003356.png)
