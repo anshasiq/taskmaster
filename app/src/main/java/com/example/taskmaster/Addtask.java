@@ -10,10 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-//import com.example.taskmaster.Model.StateOfTask;
-//import com.example.taskmaster.Model.Task;
-//import com.example.taskmaster.database.DatabaseForTask;
-
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
 import com.amplifyframework.core.Amplify;

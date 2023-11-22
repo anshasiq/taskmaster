@@ -14,9 +14,6 @@ public class TaskDetailPage extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail_page);
 
 
-//        Intent intent = null;
-//        String receivedData = intent.getStringExtra("key");
-//        findViewById(R.id.textView4).setOnClickListener(System.out.println("sdf"););
         Intent intent = getIntent();
         String receivedData = intent.getStringExtra("key");
         TextView textView4 = findViewById(R.id.textView4);
@@ -40,7 +37,6 @@ public class TaskDetailPage extends AppCompatActivity {
         textView9.setText(receivedData6);
 
 
-//        textView7
 
 
     }
