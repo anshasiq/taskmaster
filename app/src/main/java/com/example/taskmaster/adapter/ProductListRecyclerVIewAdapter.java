@@ -41,7 +41,7 @@ public class ProductListRecyclerVIewAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         TextView productFragmentTextView = (TextView) holder.itemView.findViewById(R.id.Textview4);
-        Task Id = Tasks.get(position);
+        String Id = Tasks.get(position).getId();
         String productName = Tasks.get(position).getTitle();
         String getBody = Tasks.get(position).getBody();
         String getdate = Tasks.get(position).getCreatedAt().toString();
@@ -52,7 +52,8 @@ public class ProductListRecyclerVIewAdapter extends RecyclerView.Adapter{
         View productViewHolder = holder.itemView;
         productViewHolder.setOnClickListener(view -> {
             Intent goToOrderFormIntent = new Intent(callingActivity, Edit_Activity.class);
-            goToOrderFormIntent.putExtra("Id", String.valueOf(Id));
+//            goToOrderFormIntent.putExtra("Id", String.valueOf(Id));
+            goToOrderFormIntent.putExtra("Id", Id);
             goToOrderFormIntent.putExtra("key", productName   );
             goToOrderFormIntent.putExtra("getBody", getBody);
             goToOrderFormIntent.putExtra("getdate", getdate);

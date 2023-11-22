@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUserAttributeKey;
+import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.datastore.generated.model.Task;
@@ -47,17 +49,15 @@ public class MainActivity extends AppCompatActivity {
         String userNickname = preferences.getString(SettingsPage.KEY, "No nickname");
 
         String Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
-        System.out.println(Tname);
+
 
         TextView d = (TextView) findViewById(R.id.textView6);
         d.setText(userNickname);
-        System.out.println(userNickname);
+
         Button alltasks = (Button) findViewById(R.id.button);
         Button addtasks = (Button) findViewById(R.id.button2);
 
-        Button gowork = (Button) findViewById(R.id.button7);
-        Button study = (Button) findViewById(R.id.button8);
-        Button todo = (Button) findViewById(R.id.button9);
+
         Button setting = (Button) findViewById(R.id.button6);
 
 
@@ -68,30 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        gowork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TaskDetailPage.class);
-                intent.putExtra("key", "gowork");
-                startActivity(intent);
-            }
-        });
-        study.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TaskDetailPage.class);
-                intent.putExtra("key", "study");
-                startActivity(intent);
-            }
-        });
-        todo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TaskDetailPage.class);
-                intent.putExtra("key", "todo");
-                startActivity(intent);
-            }
-        });
+
         alltasks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,13 +85,71 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setUpProductListRecyclerView();
+
+//         Amplify.Auth.signUp("ahmadanshasi123@hotmail.com",
+//                "p@ssw0rd523",
+//                AuthSignUpOptions.builder()
+//                        .userAttribute(AuthUserAttributeKey.email(), "ahmadanshasi123@hotmail.com")
+//                        .userAttribute(AuthUserAttributeKey.nickname(), "T")
+//                        .build(),
+//                good ->
+//                {
+//                    Log.i(TAG, "Signup succeeded: "+ good.toString());
+//                },
+//                bad ->
+//                {
+//                    Log.i(TAG, "Signup failed with username: "+ "tselawe706@gmail.com"+ " with this message: "+ bad.toString());
+//                }
+//        );
+
+////098701
+//          Amplify.Auth.confirmSignUp("ahmadanshasi123@hotmail.com",
+//                "098701",
+//                success ->
+//                {
+//                    Log.i(TAG,"verification succeeded: "+ success.toString());
+//
+//                },
+//                failure ->
+//                {
+//                    Log.i(TAG,"verification failed: "+ failure.toString());
+//                }
+//        );
+
+//    Amplify.Auth.signIn("ahmadanshasi123@hotmail.com",
+//                "p@ssw0rd523",
+//                success ->
+//                {
+//                    Log.i(TAG, "Login succeeded: "+success.toString());
+//                },
+//                failure ->
+//                {
+//                    Log.i(TAG, "Login failed: "+failure.toString());
+//                }
+//        );
+
+        // next we want to log out from out system
+        /*Amplify.Auth.signOut(
+                () ->
+                {
+                    Log.i(TAG,"Logout succeeded");
+                },
+                failure ->
+                {
+                    Log.i(TAG, "Logout failed");
+                }
+        );*/
+
+
+
+
     }
     @Override
     protected void onResume() {
         super.onResume();
        setUpProductListRecyclerView();
          Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
-        System.out.println(Tname);
+//        System.out.println(Tname);
     }
 
 
