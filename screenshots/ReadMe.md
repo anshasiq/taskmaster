@@ -61,3 +61,29 @@ the espresso still working fine.
 * I have created a new page called Edit
 * you can also Delete the Task
 ![edit task](Screenshot_20231123_003356.png)
+
+
+# Lab 36
+* I made all the requirements
+* i have added 3 new activity login sign_up sign_in
+  ![login](loginP.png)
+  ![signup](signupP.png)
+  ![verify](verifyP.png)
+  ![edit task](withlogin.png)
+* if the user  isn't login  he will se button to log-in otherwise would see log_out and his email
+
+
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+

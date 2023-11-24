@@ -16,9 +16,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
+import com.amplifyframework.auth.AuthUser;
+import com.amplifyframework.auth.AuthUserAttribute;
 import com.amplifyframework.auth.AuthUserAttributeKey;
 import com.amplifyframework.auth.options.AuthSignUpOptions;
 import com.amplifyframework.core.Amplify;
@@ -50,16 +53,22 @@ public class MainActivity extends AppCompatActivity {
 
         String Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
 
-
+        BB();
         TextView d = (TextView) findViewById(R.id.textView6);
         d.setText(userNickname);
 
         Button alltasks = (Button) findViewById(R.id.button);
         Button addtasks = (Button) findViewById(R.id.button2);
 
-
+        Button login = (Button) findViewById(R.id.loginM);
         Button setting = (Button) findViewById(R.id.button6);
-
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intenttt = new Intent(MainActivity.this, Login_page.class);
+                startActivity(intenttt);
+            }
+        });
 
         setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,10 +158,72 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
        setUpProductListRecyclerView();
          Tname = preferences.getString(SettingsPage.KEY2, "No nickname");
-//        System.out.println(Tname);
+
+        AuthUser authUser = Amplify.Auth.getCurrentUser();
+        String username="";
+        if (authUser == null){
+            Button loginButton = (Button) findViewById(R.id.loginM);
+            loginButton.setVisibility(View.VISIBLE);
+            Button logoutButton = (Button) findViewById(R.id.logoutM);
+            logoutButton.setVisibility(View.INVISIBLE);
+        }else{
+            username = authUser.getUsername();
+            Log.i(TAG, "Username is: "+ username);
+            Button loginButton = (Button) findViewById(R.id.loginM);
+            loginButton.setVisibility(View.INVISIBLE);
+            Button logoutButton = (Button) findViewById(R.id.logoutM);
+            logoutButton.setVisibility(View.VISIBLE);
+//
+            String username2 = username; // ugly way for lambda hack
+            Amplify.Auth.fetchUserAttributes(
+                    success ->
+                    {
+                        Log.i(TAG, "Fetch user attributes succeeded for username: "+username2);
+                        for (AuthUserAttribute userAttribute: success){
+                            if(userAttribute.getKey().getKeyString().equals("email")){
+                                String userEmail = userAttribute.getValue();
+                                runOnUiThread(() ->
+                                {
+                                    ((TextView)findViewById(R.id.hello)).setText(userEmail);
+                                });
+                            }
+                        }
+                    },
+                    failure ->
+                    {
+                        Log.i(TAG, "Fetch user attributes failed: "+failure.toString());
+                    }
+            );
+        }
+
     }
 
-
+private void BB(){
+    Button logoutButton = (Button) findViewById(R.id.logoutM);
+    logoutButton.setOnClickListener(v->
+    {
+        Amplify.Auth.signOut(
+                () ->
+                {
+                    Log.i(TAG,"Logout succeeded");
+                    runOnUiThread(() ->
+                    {
+                        ((TextView)findViewById(R.id.hello)).setText("");
+                    });
+                    Intent goToLogInIntent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(goToLogInIntent);
+                },
+                failure ->
+                {
+                    Log.i(TAG, "Logout failed");
+                    runOnUiThread(() ->
+                    {
+                        Toast.makeText(MainActivity.this, "Log out failed", Toast.LENGTH_LONG);
+                    });
+                }
+        );
+    });
+}
 
 
         @SuppressLint("SuspiciousIndentation")

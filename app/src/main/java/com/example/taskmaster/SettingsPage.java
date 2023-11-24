@@ -52,10 +52,10 @@ public class SettingsPage extends AppCompatActivity {
 //                System.out.println(af);
                 EditText userNicknameEditText = (EditText) findViewById(R.id.editTextText3);
                 String userNicknameString = userNicknameEditText.getText().toString();
-                preferneceEditor.putString(KEY, userNicknameString);//k,v
+                preferneceEditor.putString(KEY, userNicknameString);
                 preferneceEditor.apply();
 
-                preferneceEditor2.putString(KEY2, af);//k,v
+                preferneceEditor2.putString(KEY2, af);
                 preferneceEditor2.apply();
 //
 
