@@ -2,6 +2,7 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.HasMany;
+//import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -214,4 +215,12 @@ public final class Team implements Model {
     }
   }
   
+//
+//  public static class TeamIdentifier extends ModelIdentifier<Team> {
+//    private static final long serialVersionUID = 1L;
+//    public TeamIdentifier(String id) {
+//      super(id);
+//    }
+//  }
+//
 }

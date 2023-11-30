@@ -2,15 +2,18 @@ package com.example.taskmaster;
 
 import static com.example.taskmaster.Addtask.TAG;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.amplifyframework.api.graphql.model.ModelMutation;
 import com.amplifyframework.api.graphql.model.ModelQuery;
@@ -20,6 +23,7 @@ import com.amplifyframework.datastore.generated.model.Task;
 import com.example.taskmaster.R;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,13 +31,11 @@ import java.util.concurrent.ExecutionException;
 
 public class Edit_Activity extends AppCompatActivity {
 
-
-
-
     private EditText nameEditText;
     private EditText bodyEditText;
     private Task productToEdit= null;
     private CompletableFuture<Task> productCompletableFuture=null;
+    ActivityResultLauncher<Intent> activityResultLauncher;
 
     public String Id ;
 
@@ -92,9 +94,29 @@ public class Edit_Activity extends AppCompatActivity {
 //productToEdit.getBody().toString();
         System.out.println(productToEdit.getBody());
 
+        ImageView fff = findViewById(R.id.getimageS3);
+        String s33 = productToEdit.getProductImageS3Key();
+        if (s33 != null && !s33.isEmpty())
+        {
+            Amplify.Storage.downloadFile(
+                    s33,
+                    new File(getApplication().getFilesDir(), s33),
+                    success ->
+                    {
+                        ImageView productImageView = findViewById(R.id.getimageS3);
+                        productImageView.setImageBitmap(BitmapFactory.decodeFile(success.getFile().getPath()));
+                    },
+                    failure ->
+                    {
+                        Log.e(TAG, "Unable to get image from S3 for the product for S3 key: " + s33 + " for reason: " + failure.getMessage());
+                    }
+            );
+        }
+
     }
     private void setUpSaveButton()
     {
+
         Button saveButton = (Button)findViewById(R.id.saveB);
 
         saveButton.setOnClickListener(v ->
@@ -107,6 +129,7 @@ public class Edit_Activity extends AppCompatActivity {
                 .dateCreated(productToEdit.getDateCreated())
                 .stateofTask(productToEdit.getStateofTask())
                 .teamTask(productToEdit.getTeamTask())
+                .productImageS3Key(productToEdit.getProductImageS3Key())
                 .build();
 
         System.out.println(nameEditText.getText().toString());
@@ -143,6 +166,7 @@ public class Edit_Activity extends AppCompatActivity {
             );
         });
     }
+////////
 
 
 }
