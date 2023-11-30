@@ -2,6 +2,7 @@ package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
 import com.amplifyframework.core.model.annotations.BelongsTo;
+//import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +23,7 @@ import static com.amplifyframework.core.model.query.predicate.QueryField.field;
 
 /** This is an auto generated class representing the Task type in your schema. */
 @SuppressWarnings("all")
-@ModelConfig(pluralName = "Tasks",  authRules = {
+@ModelConfig(pluralName = "Tasks", authRules = {
   @AuthRule(allow = AuthStrategy.PUBLIC, operations = { ModelOperation.CREATE, ModelOperation.UPDATE, ModelOperation.DELETE, ModelOperation.READ })
 })
 @Index(name = "byTeam", fields = {"teamId","title"})
@@ -32,13 +33,15 @@ public final class Task implements Model {
   public static final QueryField BODY = field("Task", "body");
   public static final QueryField DATE_CREATED = field("Task", "dateCreated");
   public static final QueryField STATEOF_TASK = field("Task", "StateofTask");
+  public static final QueryField PRODUCT_IMAGE_S3_KEY = field("Task", "productImageS3Key");
   public static final QueryField TEAM_TASK = field("Task", "teamId");
   private final @ModelField(targetType="ID", isRequired = true) String id;
   private final @ModelField(targetType="String", isRequired = true) String title;
   private final @ModelField(targetType="String") String body;
   private final @ModelField(targetType="AWSDateTime") Temporal.DateTime dateCreated;
   private final @ModelField(targetType="stateotask") Stateotask StateofTask;
-  private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId",  type = Team.class) Team teamTask;
+  private final @ModelField(targetType="String") String productImageS3Key;
+  private final @ModelField(targetType="Team") @BelongsTo(targetName = "teamId", type = Team.class) Team teamTask;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime createdAt;
   private @ModelField(targetType="AWSDateTime", isReadOnly = true) Temporal.DateTime updatedAt;
   /** @deprecated This API is internal to Amplify and should not be used. */
@@ -67,6 +70,10 @@ public final class Task implements Model {
       return StateofTask;
   }
   
+  public String getProductImageS3Key() {
+      return productImageS3Key;
+  }
+  
   public Team getTeamTask() {
       return teamTask;
   }
@@ -79,12 +86,13 @@ public final class Task implements Model {
       return updatedAt;
   }
   
-  private Task(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask StateofTask, Team teamTask) {
+  private Task(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask StateofTask, String productImageS3Key, Team teamTask) {
     this.id = id;
     this.title = title;
     this.body = body;
     this.dateCreated = dateCreated;
     this.StateofTask = StateofTask;
+    this.productImageS3Key = productImageS3Key;
     this.teamTask = teamTask;
   }
   
@@ -101,6 +109,7 @@ public final class Task implements Model {
               ObjectsCompat.equals(getBody(), task.getBody()) &&
               ObjectsCompat.equals(getDateCreated(), task.getDateCreated()) &&
               ObjectsCompat.equals(getStateofTask(), task.getStateofTask()) &&
+              ObjectsCompat.equals(getProductImageS3Key(), task.getProductImageS3Key()) &&
               ObjectsCompat.equals(getTeamTask(), task.getTeamTask()) &&
               ObjectsCompat.equals(getCreatedAt(), task.getCreatedAt()) &&
               ObjectsCompat.equals(getUpdatedAt(), task.getUpdatedAt());
@@ -115,6 +124,7 @@ public final class Task implements Model {
       .append(getBody())
       .append(getDateCreated())
       .append(getStateofTask())
+      .append(getProductImageS3Key())
       .append(getTeamTask())
       .append(getCreatedAt())
       .append(getUpdatedAt())
@@ -131,6 +141,7 @@ public final class Task implements Model {
       .append("body=" + String.valueOf(getBody()) + ", ")
       .append("dateCreated=" + String.valueOf(getDateCreated()) + ", ")
       .append("StateofTask=" + String.valueOf(getStateofTask()) + ", ")
+      .append("productImageS3Key=" + String.valueOf(getProductImageS3Key()) + ", ")
       .append("teamTask=" + String.valueOf(getTeamTask()) + ", ")
       .append("createdAt=" + String.valueOf(getCreatedAt()) + ", ")
       .append("updatedAt=" + String.valueOf(getUpdatedAt()))
@@ -157,6 +168,7 @@ public final class Task implements Model {
       null,
       null,
       null,
+      null,
       null
     );
   }
@@ -167,6 +179,7 @@ public final class Task implements Model {
       body,
       dateCreated,
       StateofTask,
+      productImageS3Key,
       teamTask);
   }
   public interface TitleStep {
@@ -180,6 +193,7 @@ public final class Task implements Model {
     BuildStep body(String body);
     BuildStep dateCreated(Temporal.DateTime dateCreated);
     BuildStep stateofTask(Stateotask stateofTask);
+    BuildStep productImageS3Key(String productImageS3Key);
     BuildStep teamTask(Team teamTask);
   }
   
@@ -190,17 +204,19 @@ public final class Task implements Model {
     private String body;
     private Temporal.DateTime dateCreated;
     private Stateotask StateofTask;
+    private String productImageS3Key;
     private Team teamTask;
     public Builder() {
       
     }
     
-    private Builder(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask StateofTask, Team teamTask) {
+    private Builder(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask StateofTask, String productImageS3Key, Team teamTask) {
       this.id = id;
       this.title = title;
       this.body = body;
       this.dateCreated = dateCreated;
       this.StateofTask = StateofTask;
+      this.productImageS3Key = productImageS3Key;
       this.teamTask = teamTask;
     }
     
@@ -214,6 +230,7 @@ public final class Task implements Model {
           body,
           dateCreated,
           StateofTask,
+          productImageS3Key,
           teamTask);
     }
     
@@ -243,6 +260,12 @@ public final class Task implements Model {
     }
     
     @Override
+     public BuildStep productImageS3Key(String productImageS3Key) {
+        this.productImageS3Key = productImageS3Key;
+        return this;
+    }
+    
+    @Override
      public BuildStep teamTask(Team teamTask) {
         this.teamTask = teamTask;
         return this;
@@ -260,8 +283,8 @@ public final class Task implements Model {
   
 
   public final class CopyOfBuilder extends Builder {
-    private CopyOfBuilder(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask stateofTask, Team teamTask) {
-      super(id, title, body, dateCreated, StateofTask, teamTask);
+    private CopyOfBuilder(String id, String title, String body, Temporal.DateTime dateCreated, Stateotask stateofTask, String productImageS3Key, Team teamTask) {
+      super(id, title, body, dateCreated, StateofTask, productImageS3Key, teamTask);
       Objects.requireNonNull(title);
     }
     
@@ -286,12 +309,22 @@ public final class Task implements Model {
     }
     
     @Override
+     public CopyOfBuilder productImageS3Key(String productImageS3Key) {
+      return (CopyOfBuilder) super.productImageS3Key(productImageS3Key);
+    }
+    
+    @Override
      public CopyOfBuilder teamTask(Team teamTask) {
       return (CopyOfBuilder) super.teamTask(teamTask);
     }
   }
   
 
-
-  
+//  public static class TaskIdentifier extends ModelIdentifier<Task> {
+//    private static final long serialVersionUID = 1L;
+//    public TaskIdentifier(String id) {
+//      super(id);
+//    }
+//  }
+//
 }

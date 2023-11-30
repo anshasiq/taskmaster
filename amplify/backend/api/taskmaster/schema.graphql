@@ -18,6 +18,7 @@ type Task @model @auth(rules: [{allow: public}]){
   body: String
   dateCreated: AWSDateTime
   StateofTask: stateotask
+  productImageS3Key: String
   teamId:ID! @index (name:"byTeam", sortKeyFields:["title"])
   teamTask:Team @belongsTo(fields:["teamId"])
 

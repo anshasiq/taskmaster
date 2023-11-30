@@ -1,7 +1,7 @@
 package com.amplifyframework.datastore.generated.model;
 
 import com.amplifyframework.core.model.temporal.Temporal;
-
+//import com.amplifyframework.core.model.ModelIdentifier;
 
 import java.util.List;
 import java.util.UUID;
@@ -205,6 +205,11 @@ public final class Todo implements Model {
   }
   
 
-
+//  public static class TodoIdentifier extends ModelIdentifier<Todo> {
+//    private static final long serialVersionUID = 1L;
+//    public TodoIdentifier(String id) {
+//      super(id);
+//    }
+//  }
   
 }
